@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Steganography Coder</title>
+
+    <!-- Bootstrap 5 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Animate.css -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <!-- Google Font: Space Grotesk -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      :root {
+        --bg-dark: #0d1117;
+        --card-bg: #161b22;
+        --text: #f0f6fc;
+        --green: #00ff9f;
+        --accent: #39ff14;
+        --purple: #bd00ff;
+        --font-main: "Space Grotesk", sans-serif;
+      }
+
+      html,
+      body {
+        background-color: var(--bg-dark);
+        color: var(--text);
+        font-family: var(--font-main);
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        min-height: 100vh;
+      }
+
+      /* Particle background */
+      #particles-js {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        top: 0;
+        left: 0;
+      }
+
+      h2,
+      h4 {
+        font-weight: bold;
+        color: var(--accent);
+        text-shadow: 0 0 10px var(--accent);
+        position: relative;
+        display: inline-block;
+      }
+
+      h2::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, var(--green), var(--purple));
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.5s ease;
+      }
+
+      .card:hover h2::after {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+
+      .navbar {
+        background: linear-gradient(145deg, #0d1117, #1a1f27);
+        border-bottom: 2px solid;
+        animation: borderRGB 3s infinite linear;
+        backdrop-filter: blur(5px);
+        z-index: 1000;
+      }
+
+      @keyframes borderRGB {
+        0% {
+          border-color: rgb(255, 0, 0);
+          box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+        33% {
+          border-color: rgb(0, 255, 0);
+          box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+        66% {
+          border-color: rgb(0, 0, 255);
+          box-shadow: 0 0 10px rgba(0, 0, 255, 0.5);
+        }
+        100% {
+          border-color: rgb(255, 0, 0);
+          box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+      }
+
+      .navbar-brand {
+        font-size: 2.2rem;
+        color: var(--green);
+        text-shadow: 0 0 10px var(--green);
+        transition: all 0.3s ease;
+      }
+
+      .navbar-brand:hover {
+        text-shadow: 0 0 20px var(--green);
+        transform: translateY(-2px);
+      }
+
+      .nav-link {
+        color: #fff;
+        margin: 0 10px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        position: relative;
+        text-shadow: 0 0 5px var(--green);
+      }
+
+      .nav-link::after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 2px;
+        background: var(--green);
+        transition: width 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .card {
+        background-color: rgba(22, 27, 34, 0.8);
+        border-radius: 20px;
+        padding: 25px;
+        margin-top: 30px;
+        box-shadow: 0 0 20px rgba(0, 255, 159, 0.2);
+        transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(47, 54, 61, 0.5);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(0, 255, 159, 0.1),
+          transparent
+        );
+        transition: 0.5s;
+      }
+
+      .card:hover::before {
+        left: 100%;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0 40px rgba(0, 255, 159, 0.4);
+      }
+
+      .btn {
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        font-weight: bold;
+        font-family: var(--font-main);
+        letter-spacing: 1px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-glow {
+        background-color: var(--green);
+        border: none;
+        color: #000;
+        box-shadow: 0 0 15px var(--green);
+      }
+
+      .btn-glow:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 25px var(--green);
+      }
+
+      .btn-glow::after {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+          to bottom right,
+          transparent,
+          rgba(255, 255, 255, 0.1),
+          transparent
+        );
+        transform: rotate(45deg);
+        transition: 0.5s;
+      }
+
+      .btn-glow:hover::after {
+        left: 100%;
+        top: 100%;
+      }
+
+      input[type="text"],
+      input[type="file"],
+      textarea {
+        background-color: rgba(33, 38, 45, 0.7);
+        color: var(--text);
+        border: 1px solid #30363d;
+        font-family: var(--font-main);
+        box-shadow: 0 0 10px rgba(0, 255, 159, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      input[type="text"]:focus,
+      input[type="file"]:focus,
+      textarea:focus {
+        background-color: rgba(33, 38, 45, 0.9);
+        border-color: var(--green);
+        box-shadow: 0 0 15px rgba(0, 255, 159, 0.3);
+        color: var(--text);
+      }
+
+      .footer {
+        text-align: center;
+        margin: 40px 0 10px;
+        font-size: 0.9rem;
+        color: #888;
+        text-shadow: 0 0 5px #888;
+      }
+
+      /* Result animations */
+      .result-card {
+        animation: fadeInUp 0.8s ease-out forwards;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Loading spinner */
+      .spinner {
+        display: none;
+        width: 40px;
+        height: 40px;
+        margin: 20px auto;
+        border: 4px solid rgba(0, 255, 159, 0.3);
+        border-radius: 50%;
+        border-top-color: var(--green);
+        animation: spin 1s ease-in-out infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Image hover effect */
+      .img-hover-effect {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .img-hover-effect:hover {
+        transform: scale(1.02);
+        box-shadow: 0 0 30px rgba(0, 255, 159, 0.5);
+      }
+
+      /* Typewriter effect for welcome text */
+      .typewriter {
+        overflow: hidden;
+        border-right: 3px solid var(--green);
+        white-space: nowrap;
+        margin: 0 auto;
+        letter-spacing: 2px;
+        animation: typing 3.5s steps(40, end),
+          blink-caret 0.75s step-end infinite;
+      }
+
+      @keyframes typing {
+        from {
+          width: 0;
+        }
+        to {
+          width: 100%;
+        }
+      }
+
+      @keyframes blink-caret {
+        from,
+        to {
+          border-color: transparent;
+        }
+        50% {
+          border-color: var(--green);
+        }
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .navbar-brand {
+          font-size: 1.5rem;
+        }
+
+        .card {
+          padding: 15px;
+        }
+
+        h2 {
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="animate__animated animate__fadeIn">
+    <!-- Particle.js Background -->
+    <div id="particles-js"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg shadow-sm">
+      <div class="container-fluid justify-content-between px-4">
+        <a class="navbar-brand" href="#">
+          <i class="fas fa-lock me-2"></i>Image Steganography
+        </a>
+        <div>
+          <a class="nav-link d-inline" href="#home">
+            <i class="fas fa-home me-1"></i>Home
+          </a>
+          <a class="nav-link d-inline" href="#encode">
+            <i class="fas fa-lock me-1"></i>Encode
+          </a>
+          <a class="nav-link d-inline" href="#decode">
+            <i class="fas fa-unlock me-1"></i>Decode
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <!-- Home -->
+      <div id="home" class="card animate__animated animate__fadeInUp">
+        <h2 class="typewriter">🏠 Welcome !!!</h2>
+        <p class="mt-3">
+          Use the <strong class="text-success">Encode</strong> tab to hide
+          messages inside images.
+          <br />
+          <strong>How to Encode:</strong> Enter your secret message, select a
+          PNG image, and click on "Encode". The message will be hidden in the
+          image and you can download the encoded image.
+        </p>
+        <p>
+          Or go to <strong class="text-success">Decode</strong> to extract
+          messages from stego images.
+          <br />
+          <strong>How to Decode:</strong> Upload an image that has a hidden
+          message, and click on "Decode". The secret message will be extracted
+          from the image and displayed.
+        </p>
+      </div>
+
+      <!-- Encode -->
+      <div id="encode" class="card animate__animated animate__fadeInUp">
+        <h2>🛠️ Encode Message</h2>
+        <form
+          method="post"
+          enctype="multipart/form-data"
+          action="/encode"
+          id="encodeForm"
+        >
+          <div class="mb-3">
+            <label for="secret_message" class="form-label">
+              <i class="fas fa-key me-2"></i>Secret Message:
+            </label>
+            <textarea
+              id="secret_message"
+              name="secret_message"
+              class="form-control"
+              placeholder="Enter your secret message"
+              rows="3"
+              required
+            ></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="image" class="form-label">
+              <i class="fas fa-image me-2"></i>Select PNG Image:
+            </label>
+            <input
+              type="file"
+              id="image"
+              name="image"
+              accept="image/png"
+              class="form-control"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-glow">
+            <i class="fas fa-lock me-2"></i>Encode
+          </button>
+          <div class="spinner" id="encodeSpinner"></div>
+        </form>
+        <small class="text-muted d-block mt-2">
+          <i class="fas fa-info-circle me-1"></i>Only .PNG format is supported.
+        </small>
+      </div>
+
+      <!-- Encode Result -->
+      {% if img_path and message %}
+      <div class="card result-card">
+        <h4>✅ Encoded Result</h4>
+        <p><strong>Encoded Message:</strong> {{ message }}</p>
+        <img
+          src="{{ img_path }}"
+          alt="Encoded Image"
+          class="img-fluid rounded border mb-3 img-hover-effect"
+        />
+        <a href="{{ img_path }}" download class="btn btn-outline-success">
+          <i class="fas fa-download me-2"></i>Download Image
+        </a>
+      </div>
+      {% endif %}
+
+      <!-- Decode -->
+      <div id="decode" class="card animate__animated animate__fadeInUp">
+        <h2>🧪 Decode Message</h2>
+        <form
+          method="post"
+          enctype="multipart/form-data"
+          action="/decode"
+          id="decodeForm"
+        >
+          <div class="mb-3">
+            <label for="image" class="form-label">
+              <i class="fas fa-file-image me-2"></i>Upload Image to Decode:
+            </label>
+            <input
+              type="file"
+              id="decode_image"
+              name="image"
+              accept="image/*"
+              class="form-control"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-glow">
+            <i class="fas fa-unlock me-2"></i>Decode
+          </button>
+          <div class="spinner" id="decodeSpinner"></div>
+        </form>
+      </div>
+
+      <!-- Decode Result -->
+      {% if secret %}
+      <div class="card result-card">
+        <h4>🕵️ Decoded Message</h4>
+        <div class="terminal-output p-3 bg-dark rounded">
+          <pre><code>{{ secret }}</code></pre>
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Footer -->
+      <div class="footer">
+        <span class="d-block mb-1"
+          >🚀 Built by <strong>Manjunath K G</strong></span
+        >
+        <span class="d-block">BCA Final Year Project (2025)</span>
+      </div>
+    </div>
+
+    <!-- Particle.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      // Initialize particles.js
+      document.addEventListener("DOMContentLoaded", function () {
+        particlesJS("particles-js", {
+          particles: {
+            number: {
+              value: 80,
+              density: {
+                enable: true,
+                value_area: 800,
+              },
+            },
+            color: {
+              value: "#00ff9f",
+            },
+            shape: {
+              type: "circle",
+              stroke: {
+                width: 0,
+                color: "#000000",
+              },
+            },
+            opacity: {
+              value: 0.5,
+              random: true,
+              anim: {
+                enable: true,
+                speed: 1,
+                opacity_min: 0.1,
+                sync: false,
+              },
+            },
+            size: {
+              value: 3,
+              random: true,
+              anim: {
+                enable: true,
+                speed: 2,
+                size_min: 0.1,
+                sync: false,
+              },
+            },
+            line_linked: {
+              enable: true,
+              distance: 150,
+              color: "#39ff14",
+              opacity: 0.4,
+              width: 1,
+            },
+            move: {
+              enable: true,
+              speed: 1,
+              direction: "none",
+              random: true,
+              straight: false,
+              out_mode: "out",
+              bounce: false,
+              attract: {
+                enable: true,
+                rotateX: 600,
+                rotateY: 1200,
+              },
+            },
+          },
+          interactivity: {
+            detect_on: "canvas",
+            events: {
+              onhover: {
+                enable: true,
+                mode: "grab",
+              },
+              onclick: {
+                enable: true,
+                mode: "push",
+              },
+              resize: true,
+            },
+            modes: {
+              grab: {
+                distance: 140,
+                line_linked: {
+                  opacity: 1,
+                },
+              },
+              push: {
+                particles_nb: 4,
+              },
+            },
+          },
+          retina_detect: true,
+        });
+
+        // Form submission handlers
+        document
+          .getElementById("encodeForm")
+          .addEventListener("submit", function () {
+            document.getElementById("encodeSpinner").style.display = "block";
+          });
+
+        document
+          .getElementById("decodeForm")
+          .addEventListener("submit", function () {
+            document.getElementById("decodeSpinner").style.display = "block";
+          });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute("href")).scrollIntoView({
+              behavior: "smooth",
+            });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
