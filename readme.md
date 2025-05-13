@@ -27,7 +27,15 @@ A lightweight yet powerful **Flask-based steganography tool** that lets you secr
 
 ## 🔥 Sneak Peek
 
-> *(Add some cool screenshots or a terminal-style GIF of the app in action here!)*
+### 🧩 Encode Page UI
+
+![Encode UI](https://raw.githubusercontent.com/manja7304/image-steganography/main/screenshots/encode-ui.png)
+
+### 🔓 Encode + Decode Flow
+
+![Decode UI](https://raw.githubusercontent.com/manja7304/image-steganography/main/screenshots/decode-ui.png)
+
+> *Built by Manjunath K G and Madhan Kumar R — BCA Final Year Project (2025)*
 
 ---
 
@@ -38,5 +46,5 @@ Fire up your terminal and follow these steps:
 ### ⚙️ 1. Clone the repo
 
 ```bash
-git clone https://github.com/manja7304/image-steganography.git
+git clone https://github.com/<your-username>/image-steganography.git
 cd image-steganography
