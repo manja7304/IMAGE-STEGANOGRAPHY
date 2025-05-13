@@ -29,11 +29,11 @@ A lightweight yet powerful **Flask-based steganography tool** that lets you secr
 
 ### 🧩 Encode Page UI
 
-![Encode UI](https://raw.githubusercontent.com/manja7304/image-steganography/main/screenshots/encode-ui.png)
+![Encode UI](https://github.com/manja7304/IMAGE-STEGANOGRAPHY/blob/main/screenshots/encode-ui.png)
 
 ### 🔓 Encode + Decode Flow
 
-![Decode UI](https://raw.githubusercontent.com/manja7304/image-steganography/main/screenshots/decode-ui.png)
+![Decode UI](https://github.com/manja7304/IMAGE-STEGANOGRAPHY/blob/main/screenshots/decode-ui.png)
 
 > *Built by Manjunath K G and Madhan Kumar R — BCA Final Year Project (2025)*
 
